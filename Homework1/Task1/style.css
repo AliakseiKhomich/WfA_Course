@@ -1,0 +1,17 @@
+th {
+    height: 30px;
+    padding: 4px;
+    border: 1px solid darkblue;
+    text-align: center;
+}      
+td {
+    border: 1px solid darkblue;
+    padding: 4px;
+    text-align: left;
+    margin: auto;
+}
+caption {
+    font-size: large;
+    color:darkblue;
+    text-align: center;
+}
