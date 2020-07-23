@@ -1,0 +1,37 @@
+.bigSquare {
+    height: 200px;
+    width: 200px;
+    border: 10px solid black;
+    z-index: 0
+}
+.redSquare {
+    height: 100px;
+    width: 100px;        
+    background-color: red;        
+    border: 1px red;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 100px;
+    margin-bottom: 100px;
+    z-index: 1;
+}
+.blueSquare {
+    height: 100px;
+    width: 100px;        
+    background-color: blue;
+    border: 1px blue;
+    margin-top: -100px;
+    margin-left: 100px;        
+    margin-bottom: 0px;
+    margin-right: 0px;
+    z-index: 1;
+}
+.greenSquare {        
+    height: 100px;
+    width: 100px;
+    margin-top: -150px;
+    margin-left: 50px;
+    background-color: greenyellow;
+    border: 1px greenyellow;
+    z-index: 2
+}  
