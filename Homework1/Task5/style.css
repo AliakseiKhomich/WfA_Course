@@ -1,0 +1,72 @@
+@media screen and (max-width: 1028px) {
+    .cs_full {
+        max-width: 1028px;
+        max-height : 1280px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .block01,
+    .block02,
+    .block03,
+    .block04,
+    .block05,
+    .block06,
+    .block07,
+    .block08
+     {
+        width: 24%;
+        height: auto;
+        object-fit: cover;
+        margin-bottom: 5px;
+        margin-left: 5px;        
+    }
+    .block09,
+    .block10 {
+        width: 49%;
+        height: auto;
+        object-fit: cover;
+        margin-bottom: 5px;
+        margin-left: 5px;        
+    }   
+}
+@media screen and (min-width: 1029px) {
+    .cs_full {
+        max-width : 1920px;
+        max-height : 1080px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .block01,
+    .block02,
+    .block03,
+    .block04,
+    .block05,
+    .block06,
+    .block07,
+    .block08,
+    .block09,
+    .block10 {
+        width: 19%;        
+        height: auto;
+        object-fit: cover;
+        margin-bottom: 5px;
+        margin-left: 5px;
+    }
+}
+.block01 img,
+.block02 img,
+.block03 img,
+.block04 img,
+.block05 img,
+.block06 img,
+.block07 img,
+.block08 img,
+.block09 img,
+.block10 img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
