@@ -34,3 +34,4 @@ else {
     };    
 };
 console.log("New User Name is: " + sNewUserName );
+alert(sNewUserName)
