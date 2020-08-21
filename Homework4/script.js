@@ -307,6 +307,5 @@ function fDoAction(event) {
     }
 
     var oSerialized = oAccount.serializeObject(cOperationType);
-    console.log()
     console.log(oSerialized);
 }
