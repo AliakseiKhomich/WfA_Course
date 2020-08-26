@@ -145,16 +145,16 @@ function CurAccount(_AccNumber, _PIN, _CurBalance, _CreateDate, _UserName, _User
     }
 }
 
-function SavesAccount(_AccNumber, _PIN, _CurBalance, _CreateDate, _UserName, _UserType, _MaxNumWithdrawalPerYear){
+function SavingsAccount(_AccNumber, _PIN, _CurBalance, _CreateDate, _UserName, _UserType, _MaxNumWithdrawalPerYear){
     var nMaxNumWithdrawalPerYear = _MaxNumWithdrawalPerYear;
-    var args = ['Saves'];
+    var args = ['Savings'];
     StdAccount.apply(this, args.concat(Array.prototype.slice.call(arguments, 0, 5)));
 
     this.setMaxNumWithdrawalPerYear = function (_MaxNumWithdrawalPerYear) {
         nMaxNumWithdrawalPerYear = _MaxNumWithdrawalPerYear;
     }
     
-    this.geMaxNumWithdrawalPerYear = function () {
+    this.getMaxNumWithdrawalPerYear = function () {
         return nMaxNumWithdrawalPerYear;
     }
     this.serializeObject = function (_cOperationType) {
@@ -167,7 +167,7 @@ function SavesAccount(_AccNumber, _PIN, _CurBalance, _CreateDate, _UserName, _Us
                 CreateDate : this.getCreateDate(),
                 UserName   : this.getUserName(),
                 UserType   : this.getUserType(),
-                MaxNumWithdrawalPerYear : this.geMaxNumWithdrawalPerYear()
+                MaxNumWithdrawalPerYear : this.getMaxNumWithdrawalPerYear()
             }            
         );
     }
@@ -276,7 +276,7 @@ function fDoAction() {
     }
     if (document.getElementById('SavingsAcc').checked){
         nAccType = 2;
-        oAccount = new SavesAccount();
+        oAccount = new SavingsAccount();
     }
 
     var cOperationType = fGetOperationType();
