@@ -1,200 +1,200 @@
-function StdAccount(AccNumber, ContributionType, PIN, CurBalance, CreateDate, UserName, UserType){
-    var sAccNumber = AccNumber;
-    var sContributionType = ContributionType;
-    var nPIN = PIN;
-    var nCurBalance = CurBalance;
-    var sCreateDate = CreateDate;
-    var sUserName = UserName;
-    var sUserType = UserType;
+function StdAccount (_ContributionType, _AccNumber, _PIN, _CurBalance, _CreateDate, _UserName, _UserType) {
+    this.sContributionType = _ContributionType;
+    this.sAccNumber = _AccNumber;    
+    this.nPIN = _PIN;
+    this.nCurBalance = _CurBalance;
+    this.sCreateDate = _CreateDate;
+    this.sUserName = _UserName;
+    this.sUserType = _UserType;
+};
 
-    this.setAccNumber = function(AccNumber){
-        sAccNumber = AccNumber;
-    }
+StdAccount.prototype.setAccNumber = function(_AccNumber) {
+    this.sAccNumber = _AccNumber;
+};
 
-    this.setContributionType = function(ContributionType) {
-        sContributionType = ContributionType;
-    }
+StdAccount.prototype.setContributionType = function(_ContributionType) {
+    this.sContributionType = _ContributionType;
+};
 
-    this.setPIN = function(PIN){
-        nPIN = PIN;
-    }
+StdAccount.prototype.setPIN = function(_PIN) {
+    this.nPIN = _PIN;
+};
 
-    this.setCurBalance = function(CurBalance){
-        nCurBalance = CurBalance;
-    }
+StdAccount.prototype.setCurBalance = function(_CurBalance) {
+    this.nCurBalance = _CurBalance;
+};
 
-    this.setCreateDate = function(CreateDate){
-        sCreateDate = CreateDate;
-    }
+StdAccount.prototype.setCreateDate = function(_CreateDate) {
+    this.sCreateDate = _CreateDate;
+};
 
-    this.setUserName = function(UserName){
-        sUserName = UserName;
-    }
+StdAccount.prototype.setUserName = function(_UserName) {
+    this.sUserName = _UserName;
+};
 
-    this.setUserType = function(UserType){
-        sUserType = UserType;
-    }
+StdAccount.prototype.setUserType = function(_UserType)  {
+    this.sUserType = _UserType;
+};
 
-    this.getAccNumber = function(){
-        return sAccNumber;
-    }
+StdAccount.prototype.getAccNumber = function() {
+    return this.sAccNumber;
+};
 
-    this.getContributionType = function(cOperationType){
-        if ( (cOperationType == 'C') || (cOperationType == 'U') ) {
-            return sContributionType;
-        }        
-    }
+StdAccount.prototype.getContributionType = function(_OperationType) {
+    if ( (_OperationType == 'C') || (_OperationType == 'U') ) {
+        return this.sContributionType;
+    };
+};
 
-    this.getPIN = function(){
-        return nPIN;
-    }
+StdAccount.prototype.getPIN = function () {
+    return this.nPIN;
+};
 
-    this.getCurBalance = function(){
-        return nCurBalance;
-    }
+StdAccount.prototype.getCurBalance = function() {
+    return this.nCurBalance;
+};
 
-    this.getCreateDate = function(){
-        return sCreateDate;
-    }
+StdAccount.prototype.getCreateDate = function() {
+    return this.sCreateDate;
+};
 
-    this.getUserName = function(){
-        return sUserName;
-    }
+StdAccount.prototype.getUserName = function() {
+    return this.sUserName;
+};
 
-    this.getUserType = function(){
-        return sUserType;
-    }
+StdAccount.prototype.getUserType = function() {
+    return this.sUserType;
+};
 
-    this.serializeObject = function (cOperationType) {        
-        return JSON.stringify({
+StdAccount.prototype.serializeObject = function (_OperationType) {
+    return JSON.stringify({
+        Account    : this.getAccNumber(),
+        AccType    : this.getContributionType(_OperationType),
+        PIN        : this.getPIN(),
+        Balance    : this.getCurBalance(),
+        CreateDate : this.getCreateDate(),
+        UserName   : this.getUserName(),
+        UserType   : this.getUserType(),
+    });
+};
+
+StdAccount.prototype.deserializeObject = function (_oSerializedObject) {
+    var oDeserializedObject = JSON.parse(_oSerializedObject);
+    
+    sAccNumber = this.setAccNumber(oDeserializedObject.Account);
+    sContributionType = this.setContributionType(oDeserializedObject.AccType);
+    nPIN = this.setPIN(oDeserializedObject.PIN);
+    nCurBalance = this.setCurBalance(oDeserializedObject.Balance);
+    sCreateDate = this.setCreateDate(oDeserializedObject.CreateDate);
+    sUserName = this.setUserName(oDeserializedObject.UserName);
+    sUserType = this.setUserType(oDeserializedObject.UserType);
+};
+
+function CurAccount(_AccNumber, _PIN, _CurBalance, _CreateDate, _UserName, _UserType, _StoragePeriodType, _StoragePeriod) {
+    this.nStoragePeriod = _StoragePeriod;
+    this.sStoragePeriodType = _StoragePeriodType;
+    var args = ['Current'];
+    StdAccount.apply(this, args.concat(Array.prototype.slice.call(arguments, 0, 5)));
+};
+
+CurAccount.prototype = Object.create(StdAccount.prototype);
+CurAccount.prototype.constructor = CurAccount;
+
+CurAccount.prototype.setStoragePeriod = function(_StoragePeriod){
+    this.nStoragePeriod = _StoragePeriod;
+};
+
+CurAccount.prototype.setStoragePeriodType = function(_StoragePeriodType) {
+    this.sStoragePeriodType = _StoragePeriodType;
+};
+
+CurAccount.prototype.getStoragePeriod = function() {
+    return this.nStoragePeriod;
+};
+
+CurAccount.prototype.getStoragePeriodType = function() {
+    return this.sStoragePeriodType;
+};
+
+CurAccount.prototype.serializeObject = function (_OperationType) {
+    return JSON.stringify(
+        {
             Account    : this.getAccNumber(),
-            AccType    : this.getContributionType(cOperationType),
+            AccType    : this.getContributionType(_OperationType),
             PIN        : this.getPIN(),
             Balance    : this.getCurBalance(),
             CreateDate : this.getCreateDate(),
             UserName   : this.getUserName(),
             UserType   : this.getUserType(),
-        });
-    }
+            StoragePeriod     : this.getStoragePeriod(),
+            StoragePeriodType : this.getStoragePeriodType()
+        }            
+    );
+};
+
+CurAccount.prototype.deserializeObject = function (_oSerializedObject) {
+    var oDeserializedObject = JSON.parse(_oSerializedObject);
     
-    this.deserializeObject = function (oSerializedObject) {
-        var oDeserializedObject = JSON.parse(oSerializedObject);
-        
-        sAccNumber = this.setAccNumber(oDeserializedObject.Account);
-        sContributionType = this.setContributionType(oDeserializedObject.AccType);
-        nPIN = this.setPIN(oDeserializedObject.PIN);
-        nCurBalance = this.setCurBalance(oDeserializedObject.Balance);
-        sCreateDate = this.setCreateDate(oDeserializedObject.CreateDate);
-        sUserName = this.setUserName(oDeserializedObject.UserName);
-        sUserType = this.setUserType(oDeserializedObject.UserType);
-    }    
+    sAccNumber = this.setAccNumber(oDeserializedObject.Account);
+    sContributionType = this.setContributionType(oDeserializedObject.AccType);
+    nPIN = this.setPIN(oDeserializedObject.PIN);
+    nCurBalance = this.setCurBalance(oDeserializedObject.Balance);
+    sCreateDate = this.setCreateDate(oDeserializedObject.CreateDate);
+    sUserName = this.setUserName(oDeserializedObject.UserName);
+    sUserType = this.setUserType(oDeserializedObject.UserType);
+
+    nStoragePeriod = this.setStoragePeriodType(oDeserializedObject.StoragePeriod);
+    sStoragePeriodType = this.setStoragePeriodType(oDeserializedObject.StoragePeriodType);
+};
+
+function SavingsAccount(_AccNumber, _PIN, _CurBalance, _CreateDate, _UserName, _UserType, _MaxNumWithdrawalPerYear){
+    this.nMaxNumWithdrawalPerYear = _MaxNumWithdrawalPerYear;    
+    var args = ['Savings'];
+    StdAccount.apply(this, args.concat(Array.prototype.slice.call(arguments, 0, 5)));
 }
 
-function CurAccount(AccNumber, PIN, CurBalance, CreateDate, UserName, UserType, StoragePeriodType, StoragePeriod){
-    var nStoragePeriod = StoragePeriod;
-    var sStoragePeriodType = StoragePeriodType;
-    StdAccount.call(this, AccNumber, 'Current', PIN, CreateDate, UserName, UserType);
+SavingsAccount.prototype = Object.create(StdAccount.prototype);
+SavingsAccount.prototype.constructor = SavingsAccount;
 
-    this.setStoragePeriod = function (StoragePeriod) {
-        nStoragePeriod = StoragePeriod;
-    }
+SavingsAccount.prototype.setMaxNumWithdrawalPerYear = function(_MaxNumWithdrawalPerYear) {
+    this.nMaxNumWithdrawalPerYear = _MaxNumWithdrawalPerYear;
+};
+
+SavingsAccount.prototype.geMaxNumWithdrawalPerYear = function() {
+    return this.nMaxNumWithdrawalPerYear;
+};
+
+SavingsAccount.prototype.serializeObject = function (_OperationType) {    
+    return JSON.stringify(
+        {
+            Account    : this.getAccNumber(),
+            AccType    : this.getContributionType(_OperationType),
+            PIN        : this.getPIN(),
+            Balance    : this.getCurBalance(),
+            CreateDate : this.getCreateDate(),
+            UserName   : this.getUserName(),
+            UserType   : this.getUserType(),
+            MaxNumWithdrawalPerYear : this.geMaxNumWithdrawalPerYear()
+        }            
+    );
+};
+
+SavingsAccount.prototype.deserializeObject = function (_oSerializedObject) {
+    var oDeserializedObject = JSON.parse(_oSerializedObject);
     
-    this.setStoragePeriodType = function (StoragePeriodType) {
-        sStoragePeriodType = StoragePeriodType;
-    }
+    sAccNumber = this.setAccNumber(oDeserializedObject.Account);
+    sContributionType = this.setContributionType(oDeserializedObject.AccType);
+    nPIN = this.setPIN(oDeserializedObject.PIN);
+    nCurBalance = this.setCurBalance(oDeserializedObject.Balance);
+    sCreateDate = this.setCreateDate(oDeserializedObject.CreateDate);
+    sUserName = this.setUserName(oDeserializedObject.UserName);
+    sUserType = this.setUserType(oDeserializedObject.UserType);
 
-    this.getStoragePeriod = function () {
-        return nStoragePeriod;
-    }
+    nMaxNumWithdrawalPerYear = this.setMaxNumWithdrawalPerYear(oDeserializedObject.MaxNumWithdrawalPerYear);
+};
 
-    this.getStoragePeriodType = function () {
-        return sStoragePeriodType;
-    }
-
-    this.serializeObject = function (cOperationType) {
-        
-        return JSON.stringify(
-            {
-                Account    : this.getAccNumber(),
-                AccType    : this.getContributionType(cOperationType),
-                PIN        : this.getPIN(),
-                Balance    : this.getCurBalance(),
-                CreateDate : this.getCreateDate(),
-                UserName   : this.getUserName(),
-                UserType   : this.getUserType(),
-                StoragePeriod     : this.getStoragePeriod(),
-                StoragePeriodType : this.getStoragePeriodType()
-            }            
-        );
-    }
-    
-    this.deserializeObject = function (oSerializedObject) {
-        var oDeserializedObject = JSON.parse(oSerializedObject);
-        
-        sAccNumber = this.setAccNumber(oDeserializedObject.Account);
-        sContributionType = this.setContributionType(oDeserializedObject.AccType);
-        nPIN = this.setPIN(oDeserializedObject.PIN);
-        nCurBalance = this.setCurBalance(oDeserializedObject.Balance);
-        sCreateDate = this.setCreateDate(oDeserializedObject.CreateDate);
-        sUserName = this.setUserName(oDeserializedObject.UserName);
-        sUserType = this.setUserType(oDeserializedObject.UserType);
-
-        nStoragePeriod = this.setStoragePeriodType(oDeserializedObject.StoragePeriod);
-        sStoragePeriodType = this.setStoragePeriodType(oDeserializedObject.StoragePeriodType);
-    }
-}
-
-function SavesAccount(AccNumber, PIN, CurBalance, CreateDate, UserName, UserType, MaxNumWithdrawalPerYear){
-    var nMaxNumWithdrawalPerYear = MaxNumWithdrawalPerYear;
-    StdAccount.call(this, AccNumber, 'Saves', PIN, CreateDate, UserName, UserType);
-
-    this.setMaxNumWithdrawalPerYear = function (MaxNumWithdrawalPerYear) {
-        nMaxNumWithdrawalPerYear = MaxNumWithdrawalPerYear;
-    }
-    
-    this.geMaxNumWithdrawalPerYear = function () {
-        return nMaxNumWithdrawalPerYear;
-    }
-    this.serializeObject = function (cOperationType) {
-        return JSON.stringify(
-            {
-                Account    : this.getAccNumber(),
-                AccType    : this.getContributionType(cOperationType),
-                PIN        : this.getPIN(),
-                Balance    : this.getCurBalance(),
-                CreateDate : this.getCreateDate(),
-                UserName   : this.getUserName(),
-                UserType   : this.getUserType(),
-                MaxNumWithdrawalPerYear : this.geMaxNumWithdrawalPerYear()
-            }            
-        );
-    }
-    
-    this.deserializeObject = function (oSerializedObject) {
-        var oDeserializedObject = JSON.parse(oSerializedObject);
-        
-        sAccNumber = this.setAccNumber(oDeserializedObject.Account);
-        sContributionType = this.setContributionType(oDeserializedObject.AccType);
-        nPIN = this.setPIN(oDeserializedObject.PIN);
-        nCurBalance = this.setCurBalance(oDeserializedObject.Balance);
-        sCreateDate = this.setCreateDate(oDeserializedObject.CreateDate);
-        sUserName = this.setUserName(oDeserializedObject.UserName);
-        sUserType = this.setUserType(oDeserializedObject.UserType);
-
-        nMaxNumWithdrawalPerYear = this.setMaxNumWithdrawalPerYear(oDeserializedObject.MaxNumWithdrawalPerYear);
-    }    
-}
-
-var oRadioAccType = document.getElementById('accTypeSelect');
-var oRadioActionType = document.getElementById('actionTypeSelect');
-var oDoAction = document.getElementById('doAction');
-
-oRadioAccType.addEventListener('click', fChangeAccType);
-oRadioActionType.addEventListener('click', fChangeAction);
-oDoAction.addEventListener('click', fDoAction);
-
-function fChangeAccType(event) {
-    var selAccType = event.target.id;
+function fChangeAccType(_event) {
+    var selAccType = _event.target.id;
 
     switch (selAccType) {
         case 'CurrentAcc': {
@@ -214,10 +214,10 @@ function fChangeAccType(event) {
             break;
         }
     }
-}
+};
 
-function fChangeAction(event) {
-    var selAccType = event.target.id;
+function fChangeAction(_event) {
+    var selAccType = _event.target.id;
 
     switch (selAccType) {
         case 'CreateAcc': 
@@ -248,7 +248,7 @@ function fChangeAction(event) {
             break;
         };
     }    
-}
+};
 
 function fGetOperationType () {
     if ((document.getElementById('CreateAcc').checked)) {
@@ -263,9 +263,9 @@ function fGetOperationType () {
     if ((document.getElementById('DeleteAcc').checked)) {
         return 'D';
     };
-}
+};
 
-function fDoAction(event) {
+function fDoAction() {
     var nAccType = 0;
     var oAccount;
     if (document.getElementById('CurrentAcc').checked){
@@ -274,23 +274,21 @@ function fDoAction(event) {
     }
     if (document.getElementById('SavingsAcc').checked){
         nAccType = 2;
-        oAccount = new SavesAccount();
+        oAccount = new SavingsAccount();
     }
 
-    var cOperationType = fGetOperationType();
+    var sOperationType = fGetOperationType();
     oAccount.setAccNumber(document.getElementById('accNumber').value);
 
-    if ((cOperationType == 'C') || (cOperationType == 'U')) {
+    if ((sOperationType == 'C') || (sOperationType == 'U')) {
         // Create new or update existing account 
         switch (nAccType) {
             case 1: { 
-                oAccount.setContributionType('Current'); 
                 oAccount.setStoragePeriod(document.getElementById('storagePeriod').value);
                 oAccount.setStoragePeriodType(document.getElementById('storagePeriodType').value);
                 break 
             };
             case 2: { 
-                oAccount.setContributionType('Savings'); 
                 oAccount.setMaxNumWithdrawalPerYear(document.getElementById('withdrawalPerYear').value);
                 break 
             };
@@ -306,6 +304,14 @@ function fDoAction(event) {
         oAccount.setUserType(document.getElementById('userType').value);
     }
 
-    var oSerialized = oAccount.serializeObject(cOperationType);    
+    var oSerialized = oAccount.serializeObject(sOperationType);
     console.log(oSerialized);
-}
+};
+
+var oRadioAccType = document.getElementById('accTypeSelect');
+var oRadioActionType = document.getElementById('actionTypeSelect');
+var oDoAction = document.getElementById('doAction');
+
+oRadioAccType.addEventListener('click', fChangeAccType);
+oRadioActionType.addEventListener('click', fChangeAction);
+oDoAction.addEventListener('click', fDoAction);

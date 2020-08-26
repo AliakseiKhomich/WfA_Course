@@ -28,6 +28,14 @@
             "url": "http://localhost:8080",
             "file": "${workspaceFolder}/Homework4/homework4.html",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "HW5 - Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:8080",
+            "file": "${workspaceFolder}/Homework5/homework5.html",
+            "webRoot": "${workspaceFolder}"
         },        
         {
             "type": "node",
@@ -64,6 +72,15 @@
                 "<node_internals>/**"
             ],
             "program": "../Projects/homework4/script.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "HW5",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "../Projects/homework5/script.js"
         }                
     ]
 }
