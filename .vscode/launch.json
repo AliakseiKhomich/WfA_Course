@@ -36,7 +36,15 @@
             "url": "http://localhost:8080",
             "file": "${workspaceFolder}/Homework5/homework5.html",
             "webRoot": "${workspaceFolder}"
-        },        
+        },
+        {
+            "name": "HW6 - Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:8080",
+            "file": "${workspaceFolder}/Homework6/homework6.html",
+            "webRoot": "${workspaceFolder}"
+        },
         {
             "type": "node",
             "request": "launch",

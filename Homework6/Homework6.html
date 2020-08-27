@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW6 - Accounts(CRUD) - Variant 2 (N7, Aliaksei Khomich)</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script defer src="script.js"></script>
+</head>
+    <body>
+        <body class="bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 order-md-1">
+                        <h4 class="mb-3">Accounts</h4>
+                        <hr class="mb-4">
+                        <form class="needs-validation" id ="AccForm" novalidate>
+                            <div class="d-block my-3" id="accTypeSelect">
+                                <div class="form-check form-check-inline">
+                                    <input id="CurrentAcc" name="contributionType" type="radio" class="form-check-input" checked>
+                                    <label class="form-check-label" for="CurrentAcc">Current</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input id="SavingsAcc" name="contributionType" type="radio" class="form-check-input">
+                                    <label class="form-check-label" for="SavingsAcc">Savings</label>
+                                </div>
+                            </div>
+                            <div class="row" id="mainInfo">
+                                <div class="col-md-5 mb-2">
+                                    <label for="accNumber">Account Number</label>
+                                    <input type="text" class="form-control" id="accNumber" placeholder="Account Number" value="" required>
+                                </div>
+                                <div class="invalid-feedback">Account Number required.</div>
+                                <div class="col-md-5 mb-2" id="createDateInfo">
+                                    <label for="accNumber">Create Date</label>
+                                    <input type="text" class="form-control" id="createDate" placeholder="Create Date" value="">
+                                </div>                                
+                            </div>    
+                            <div class="row" id="userInfo">
+                                <div class="col-md-5 mb-3">
+                                    <label for="userName">User Name</label>
+                                    <input type="text" class="form-control" id="userName" placeholder="User Name" value="">
+                                </div>
+                                <div class="form-group col-md-4 mb-3">
+                                    <label for="userType">User Type</label>
+                                    <select class="form-control" id="userType">
+                                        <option value="">Choose...</option>
+                                        <option>Individual</option>
+                                        <option>Entity</option>
+                                    </select>
+                                </div>
+                                <hr class="mb-4">
+                                <div class="col-md-3 mb-3">
+                                    <label for="PIN">PIN</label>
+                                    <input type="number" class="form-control" id="PIN" placeholder="PIN">
+                                </div>
+                            </div>
+                            <div class="mb-3" id="balanceInfo">
+                                <label for="curBalance">Current Balance</label>
+                                <input type="number" class="form-control" id="curBalance" placeholder="Current Balance" value="">
+                            </div>
+                            <hr class="mb-4">
+                            <div class="row" id="storageInfo">
+                                <div class="col-md-5 mb-2">
+                                    <label for="storagePeriod">Storage Period</label>
+                                    <input type="number" class="form-control" id="storagePeriod" placeholder="Storage Period" value="">
+                                </div>
+                                <div class="form-group col-md-4 mb-2">
+                                    <label for="storagePeriodType">Storage Period Type</label>
+                                    <select class="form-control" id="storagePeriodType">
+                                        <option value="">Choose...</option>
+                                        <option>Year</option>
+                                        <option>Month</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row" id="withdrawalPerYearInfo" hidden>
+                                <div class="col-md-5 mb-2">
+                                    <label for="withdrawalPerYear">Max withdrawal per year</label>
+                                    <input type="number" class="form-control" id="withdrawalPerYear" placeholder="Max withdrawal" value="">
+                                </div>
+                            </div>
+                            <hr class="mb-4">
+                            <table class="table table-stripped table-bordered table-hover table-sm" id="tableInfo">
+                                <caption>Accounts List</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Account</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">CreateDate</th>
+                                        <th scope="col">Balance</th>
+                                        <th scope="col">User Type</th>
+                                        <th scope="col">User Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="AccTable">
+
+                                </tbody>
+                            </table>
+                            <hr class="mb-4">
+                            <h5 class="mb-3">Select Action</h5>
+                            <div class="d-block my-3" id="actionTypeSelect">
+                                <div class="form-check form-check-inline">
+                                    <input id="CreateAcc" name="actionSelect" type="radio" class="form-check-input" checked>
+                                    <label class="form-check-label" for="CreateAcc">Create</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input id="ReadAcc" name="actionSelect" type="radio" class="form-check-input">
+                                    <label class="form-check-label" for="ReadAcc">Read</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input id="UpdateAcc" name="actionSelect" type="radio" class="form-check-input">
+                                    <label class="form-check-label" for="UpdateAcc">Update</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input id="DeleteAcc" name="actionSelect" type="radio" class="form-check-input">
+                                    <label class="form-check-label" for="DeleteAcc">Delete</label>
+                                </div>                                                                
+                            </div>                            
+                            <button class="btn btn-primary" type="submit" id="doAction">Do it!</button>                            
+                        </form>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </body>
+</html>
