@@ -78,16 +78,8 @@ function StdAccount(_ContributionType, _AccNumber, _PIN, _CurBalance, _CreateDat
     }
     
     this.deserializeObject = function (_oSerializedObject) {
-        var oDeserializedObject = JSON.parse(_oSerializedObject);
-        
-        sAccNumber = this.setAccNumber(oDeserializedObject.Account);
-        sContributionType = this.setContributionType(oDeserializedObject.AccType);
-        nPIN = this.setPIN(oDeserializedObject.PIN);
-        nCurBalance = this.setCurBalance(oDeserializedObject.Balance);
-        sCreateDate = this.setCreateDate(oDeserializedObject.CreateDate);
-        sUserName = this.setUserName(oDeserializedObject.UserName);
-        sUserType = this.setUserType(oDeserializedObject.UserType);
-    }    
+        return JSON.parse(_oSerializedObject);
+    };
 }
 
 function CurAccount(_AccNumber, _PIN, _CurBalance, _CreateDate, _UserName, _UserType, _StoragePeriodType, _StoragePeriod){
@@ -128,21 +120,6 @@ function CurAccount(_AccNumber, _PIN, _CurBalance, _CreateDate, _UserName, _User
             }            
         );
     }
-    
-    this.deserializeObject = function (_oSerializedObject) {
-        var oDeserializedObject = JSON.parse(_oSerializedObject);
-        
-        sAccNumber = this.setAccNumber(oDeserializedObject.Account);
-        sContributionType = this.setContributionType(oDeserializedObject.AccType);
-        nPIN = this.setPIN(oDeserializedObject.PIN);
-        nCurBalance = this.setCurBalance(oDeserializedObject.Balance);
-        sCreateDate = this.setCreateDate(oDeserializedObject.CreateDate);
-        sUserName = this.setUserName(oDeserializedObject.UserName);
-        sUserType = this.setUserType(oDeserializedObject.UserType);
-
-        nStoragePeriod = this.setStoragePeriodType(oDeserializedObject.StoragePeriod);
-        sStoragePeriodType = this.setStoragePeriodType(oDeserializedObject.StoragePeriodType);
-    }
 }
 
 function SavingsAccount(_AccNumber, _PIN, _CurBalance, _CreateDate, _UserName, _UserType, _MaxNumWithdrawalPerYear){
@@ -171,20 +148,6 @@ function SavingsAccount(_AccNumber, _PIN, _CurBalance, _CreateDate, _UserName, _
             }            
         );
     }
-    
-    this.deserializeObject = function (_oSerializedObject) {
-        var oDeserializedObject = JSON.parse(_oSerializedObject);
-        
-        sAccNumber = this.setAccNumber(oDeserializedObject.Account);
-        sContributionType = this.setContributionType(oDeserializedObject.AccType);
-        nPIN = this.setPIN(oDeserializedObject.PIN);
-        nCurBalance = this.setCurBalance(oDeserializedObject.Balance);
-        sCreateDate = this.setCreateDate(oDeserializedObject.CreateDate);
-        sUserName = this.setUserName(oDeserializedObject.UserName);
-        sUserType = this.setUserType(oDeserializedObject.UserType);
-
-        nMaxNumWithdrawalPerYear = this.setMaxNumWithdrawalPerYear(oDeserializedObject.MaxNumWithdrawalPerYear);
-    }    
 }
 
 var oRadioAccType = document.getElementById('accTypeSelect');
