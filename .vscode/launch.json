@@ -46,6 +46,14 @@
             "webRoot": "${workspaceFolder}"
         },
         {
+            "name": "HW7 - Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:8080",
+            "file": "${workspaceFolder}/Homework7/index.html",
+            "webRoot": "${workspaceFolder}"
+        },        
+        {
             "type": "node",
             "request": "launch",
             "name": "HW3 - Task1",
