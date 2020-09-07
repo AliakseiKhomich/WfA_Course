@@ -15,7 +15,7 @@
                     <div class="col-md-8 order-md-1">
                         <h4 class="mb-3">Accounts</h4>
                         <hr class="mb-4">
-                        <form class="needs-validation" id ="AccForm" novalidate>
+                        <form class="form-group" id ="AccForm">
                             <div class="d-block my-3" id="accTypeSelect">
                                 <div class="form-check form-check-inline">
                                     <input id="CurrentAcc" name="contributionType" type="radio" class="form-check-input" checked>
@@ -27,22 +27,25 @@
                                 </div>
                             </div>
                             <div class="row" id="mainInfo">
-                                <div class="col-md-5 mb-2">
-                                    <label for="accNumber">Account Number</label>
-                                    <input type="text" class="form-control" id="accNumber" placeholder="Account Number" value="" required>
+                                <div class="col-md-3 mb-3" id="accIDGroup" hidden>
+                                    <label for="accID">Account ID</label>
+                                    <input type="text" class="form-control" id="accID" placeholder="Account ID" value="">
                                 </div>
-                                <div class="invalid-feedback">Account Number required.</div>
-                                <div class="col-md-5 mb-2" id="createDateInfo">
+                                <div class="col-md-3 mb-3">
+                                    <label for="accNumber">Account Number</label>
+                                    <input type="text" class="form-control" id="accNumber" placeholder="Account Number" value="">
+                                </div>
+                                <div class="col-md-3 mb-3" id="createDateInfo">
                                     <label for="accNumber">Create Date</label>
                                     <input type="text" class="form-control" id="createDate" placeholder="Create Date" value="">
-                                </div>                                
+                                </div>
                             </div>    
                             <div class="row" id="userInfo">
-                                <div class="col-md-5 mb-3">
+                                <div class="col-md-3 mb-3">
                                     <label for="userName">User Name</label>
                                     <input type="text" class="form-control" id="userName" placeholder="User Name" value="">
                                 </div>
-                                <div class="form-group col-md-4 mb-3">
+                                <div class="form-group col-md-3 mb-3">
                                     <label for="userType">User Type</label>
                                     <select class="form-control" id="userType">
                                         <option value="">Choose...</option>
@@ -86,13 +89,13 @@
                                 <caption>Accounts List</caption>
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Account</th>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">CreateDate</th>
-                                        <th scope="col">Balance</th>
-                                        <th scope="col">User Type</th>
-                                        <th scope="col">User Name</th>
+                                        <th scope="col-7">#</th>
+                                        <th scope="col-7">Account</th>
+                                        <th scope="col-7">Type</th>
+                                        <th scope="col-7">CreateDate</th>
+                                        <th scope="col-7">Balance</th>
+                                        <th scope="col-7">User Type</th>
+                                        <th scope="col-7">User Name</th>
                                     </tr>
                                 </thead>
                                 <tbody id="AccTable">

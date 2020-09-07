@@ -68,13 +68,13 @@ StdAccount.prototype.getUserType = function() {
 
 StdAccount.prototype.serializeObject = function (_OperationType) {
     return JSON.stringify({
-        Account    : this.getAccNumber(),
-        AccType    : this.getContributionType(_OperationType),
-        PIN        : this.getPIN(),
-        Balance    : this.getCurBalance(),
-        CreateDate : this.getCreateDate(),
-        UserName   : this.getUserName(),
-        UserType   : this.getUserType(),
+        contributionType : this.getContributionType(_OperationType),
+        accNumber        : this.getAccNumber(),
+        pin              : this.getPIN(),
+        curBalance       : this.getCurBalance(),
+        createDate       : this.getCreateDate(),
+        userName         : this.getUserName(),
+        userType         : this.getUserType(),
     });
 };
 
@@ -111,15 +111,15 @@ CurAccount.prototype.getStoragePeriodType = function() {
 CurAccount.prototype.serializeObject = function (_OperationType) {
     return JSON.stringify(
         {
-            Account    : this.getAccNumber(),
-            AccType    : this.getContributionType(_OperationType),
-            PIN        : this.getPIN(),
-            Balance    : this.getCurBalance(),
-            CreateDate : this.getCreateDate(),
-            UserName   : this.getUserName(),
-            UserType   : this.getUserType(),
-            StoragePeriod     : this.getStoragePeriod(),
-            StoragePeriodType : this.getStoragePeriodType()
+            contributionType : this.getContributionType(_OperationType),
+            accNumber        : this.getAccNumber(),
+            pin              : this.getPIN(),
+            curBalance       : this.getCurBalance(),
+            createDate       : this.getCreateDate(),
+            userName         : this.getUserName(),
+            userType         : this.getUserType(),
+            storagePeriod     : this.getStoragePeriod(),
+            storagePeriodType : this.getStoragePeriodType()
         }            
     );
 };
@@ -144,14 +144,14 @@ SavingsAccount.prototype.geMaxNumWithdrawalPerYear = function() {
 SavingsAccount.prototype.serializeObject = function (_OperationType) {    
     return JSON.stringify(
         {
-            Account    : this.getAccNumber(),
-            AccType    : this.getContributionType(_OperationType),
-            PIN        : this.getPIN(),
-            Balance    : this.getCurBalance(),
-            CreateDate : this.getCreateDate(),
-            UserName   : this.getUserName(),
-            UserType   : this.getUserType(),
-            MaxNumWithdrawalPerYear : this.geMaxNumWithdrawalPerYear()
+            contributionType : this.getContributionType(_OperationType),
+            accNumber        : this.getAccNumber(),
+            pin              : this.getPIN(),
+            curBalance       : this.getCurBalance(),
+            createDate       : this.getCreateDate(),
+            userName         : this.getUserName(),
+            userType         : this.getUserType(),
+            maxNumWithdrawalPerYear : this.geMaxNumWithdrawalPerYear()
         }            
     );
 };
@@ -182,6 +182,13 @@ function fChangeAccType(_event) {
 function fChangeAction(_event) {
     var selAccType = _event.target.id;
 
+    if ( selAccType === 'CreateAcc' ) {
+        document.getElementById('accIDGroup').hidden = true;
+    }
+    else {
+        document.getElementById('accIDGroup').hidden = false;
+    }    
+
     switch (selAccType) {
         case 'CreateAcc': 
         case 'UpdateAcc': {
@@ -201,7 +208,7 @@ function fChangeAction(_event) {
             break;
         };
         case 'ReadAcc': 
-        case 'DeleteAcc': {
+        case 'DeleteAcc': {            
             document.getElementById('createDateInfo').hidden = true;
             document.getElementById('userInfo').hidden = true;
             document.getElementById('PIN').hidden = true;
@@ -281,10 +288,10 @@ function fDoAction(event) {
                 if (this.readyState === 4) {
                     console.log('Server response: ' + this.responseText);
                     document.getElementById("AccForm").dispatchEvent(new Event('submit'));
-                } 
+                }
             });
         
-            xhr.open("POST", "http://195.50.2.67:2403/Accounts/");
+            xhr.open("POST", "http://localhost:2403/accounts/");
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(oSerialized);
             break;
@@ -302,12 +309,12 @@ function fDoAction(event) {
         
                     var oCurTable = document.getElementById('AccTable').parentElement;
                     oCurTable.replaceChild(oNewTBody, document.getElementById('AccTable'));
-                    resultTBody.id = 'AccTable';
+                    oNewTBody.id = 'AccTable';
                     console.log('Rows have been successfully added to the table.');
                 }
             });
         
-            xhr.open("GET", "http://195.50.2.67:2403/Accounts/");
+            xhr.open("GET", "http://localhost:2403/accounts/");
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send();
             break;
@@ -322,8 +329,8 @@ function fDoAction(event) {
                     console.log(this.responseText);
                 }
             });
-        
-            xhr.open("PUT", "http://195.50.2.67:2403/Accounts(" + document.getElementById("accNumber").value + ')');
+                    
+            xhr.open("PUT", "http://localhost:2403/accounts/" + document.getElementById("accID").value);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send(oSerialized);
             break;
@@ -338,7 +345,7 @@ function fDoAction(event) {
                 }
             });
         
-            xhr.open("DELETE", "http://195.50.2.67:2403/Accounts(" + document.getElementById("accNumber").value + ')');
+            xhr.open("DELETE", "http://localhost:2403/accounts/" + document.getElementById("accID").value);
             xhr.setRequestHeader("Content-Type", "application/json");
             xhr.send();
             break;
@@ -349,29 +356,33 @@ function fDoAction(event) {
 function parseAccountsToTableRow(_Accounts){
     var row = document.createElement('tr');
 
-    AccNumber = document.createElement('td');
-    AccNumber.innerText = CPUs['AccNumber'];
-    row.appendChild(AccNumber);
-
+    idAccount = document.createElement('td');
+    idAccount.innerText = _Accounts['id'];
+    row.appendChild(idAccount);    
+    
     ContributionType = document.createElement('td');
-    ContributionType.innerText = CPUs['ContributionType'];
+    ContributionType.innerText = _Accounts['contributionType'];
     row.appendChild(ContributionType);
+
+    AccNumber = document.createElement('td');
+    AccNumber.innerText = _Accounts['accNumber'];
+    row.appendChild(AccNumber);
    
     CreateDate = document.createElement('td');
-    CreateDate.innerText = CPUs['CreateDate'];
+    CreateDate.innerText = _Accounts['createDate'];
     row.appendChild(CreateDate);
 
     CurBalance = document.createElement('td');
-    CurBalance.innerText = CPUs['CurBalance'];
+    CurBalance.innerText = _Accounts['curBalance'];
     row.appendChild(CurBalance);
 
     UserType = document.createElement('td');
-    UserType.innerText = CPUs['UserType'];
+    UserType.innerText = _Accounts['userType'];
     row.appendChild(UserType);
     
     UserName = document.createElement('td');
-    UserName.innerText = CPUs['UserName'];
-    row.appendChild(UserName);    
+    UserName.innerText = _Accounts['userName'];
+    row.appendChild(UserName);
 
     return row;
 }
