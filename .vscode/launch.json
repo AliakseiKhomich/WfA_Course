@@ -50,9 +50,17 @@
             "request": "launch",
             "type": "pwa-chrome",
             "url": "http://localhost:8080",
-            "file": "${workspaceFolder}/Homework7/Task1/task1.html",
+            "file": "${workspaceFolder}/Homework7/Index.html",
             "webRoot": "${workspaceFolder}"
-        },        
+        },
+        {
+            "name": "HW8 - Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:8080",
+            "file": "${workspaceFolder}/Homework8/homework8.html",
+            "webRoot": "${workspaceFolder}"
+        },                
         {
             "type": "node",
             "request": "launch",
