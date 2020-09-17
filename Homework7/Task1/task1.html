@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 7 - Task 1 (JQuery)</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script defer src="script.js"></script>   
+</head>
+<body>
+    <body class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">QueryResults</h4>
+                    <hr class="mb-4">
+                    <h5 class="mb-3">Select type of Query</h5>
+                    <form class="form-group" id ="jQueryForm" method="GET">
+                        <div class="d-block my-3" id="actionTypeSelect">
+                            <div class="form-check form-check-inline">
+                                <input id="count" name="QueryType" type="radio" class="form-check-input" checked>
+                                <label class="form-check-label" for="count">$count</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="expand" name="QueryType" type="radio" class="form-check-input">
+                                <label class="form-check-label" for="ReadAcc">$expand</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="orderby" name="QueryType" type="radio" class="form-check-input">
+                                <label class="form-check-label" for="orderby">$orderby</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="search" name="QueryType" type="radio" class="form-check-input">
+                                <label class="form-check-label" for="search">$search</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="select" name="QueryType" type="radio" class="form-check-input">
+                                <label class="form-check-label" for="select">$select</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="skip" name="QueryType" type="radio" class="form-check-input">
+                                <label class="form-check-label" for="skip">$skip</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="top" name="QueryType" type="radio" class="form-check-input">
+                                <label class="form-check-label" for="top">$top</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="filter" name="QueryType" type="radio" class="form-check-input">
+                                <label class="form-check-label" for="filter">$filter</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="filters3" name="QueryType" type="radio" class="form-check-input">
+                                <label class="form-check-label" for="filters3">3 filters</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input id="strings3" name="QueryType" type="radio" class="form-check-input">
+                                <label class="form-check-label" for="strings3">3 string parameters</label>
+                            </div>                            
+                        </div>                        
+                        <button class="btn btn-primary" type="submit" id="doAction">Do it!</button>
+                        <hr class="mb-4">                        
+                        <div class="row" id="count">
+                            <div class="col-md-5 mb-2">
+                                <label for="CountResult">CountResult (Airports)</label>
+                                <input type="number" class="form-control" id="CountResult" placeholder="CountRecords" value="">
+                            </div>                            
+                        </div>
+                        <hr class="mb-4">
+                        <table class="table table-stripped table-bordered table-hover table-sm" id="tableInfo">
+                            <caption id="queryCaption">JQuery Result</caption>
+                            <thead id="queryHead"></thead>
+                            <tbody id="queryResults"></tbody>
+                        </table>                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</body>
+</html>

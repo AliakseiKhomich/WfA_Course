@@ -50,7 +50,7 @@
             "request": "launch",
             "type": "pwa-chrome",
             "url": "http://localhost:8080",
-            "file": "${workspaceFolder}/Homework7/index.html",
+            "file": "${workspaceFolder}/Homework7/Task1/task1.html",
             "webRoot": "${workspaceFolder}"
         },        
         {
