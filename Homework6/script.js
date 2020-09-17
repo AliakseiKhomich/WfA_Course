@@ -287,6 +287,10 @@ function fDoAction(event) {
             xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4) {
                     console.log('Server response: ' + this.responseText);
+                    var oReceivedAccounts = oAccount.deserializeObject(this.response);
+                    var oTBody = document.getElementById('AccTable');
+                    oTBody.appendChild(parseAccountsToTableRow(oReceivedAccounts));
+                    console.log('Account have been successfully created.');
                     document.getElementById("AccForm").dispatchEvent(new Event('submit'));
                 }
             });
@@ -301,7 +305,7 @@ function fDoAction(event) {
             xhr.addEventListener("readystatechange", function () {
                 if (this.readyState === 4) {
                     console.log(this.responseText);
-                    oReceivedAccounts = oAccount.deserializeObject(this.response);
+                    var oReceivedAccounts = oAccount.deserializeObject(this.response);
                     var oNewTBody = document.createElement('tbody');
                     oReceivedAccounts.map(function(nthAccount) {
                         oNewTBody.appendChild(parseAccountsToTableRow(nthAccount));
@@ -387,10 +391,15 @@ function parseAccountsToTableRow(_Accounts){
     return row;
 }
 
+$(function(){
+    $('#doAction').click( function(event) {
+        event.preventDefault();
+        fDoAction(event); 
+      });
+
+})
 var oRadioAccType = document.getElementById('accTypeSelect');
 var oRadioActionType = document.getElementById('actionTypeSelect');
-var oDoAction = document.getElementById('doAction');
 
 oRadioAccType.addEventListener('click', fChangeAccType);
 oRadioActionType.addEventListener('click', fChangeAction);
-oDoAction.addEventListener('click', fDoAction);
