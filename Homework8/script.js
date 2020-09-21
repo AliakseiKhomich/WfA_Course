@@ -280,6 +280,7 @@ function fDoAction(event) {
     switch (sOperationType) {
         case 'C': {
             console.log('Create (POST)');
+            console.log(oSerialized);
             $.ajax({
                 url: "http://localhost:2403/accounts/",
                 type: 'POST',
@@ -300,7 +301,7 @@ function fDoAction(event) {
         };
         case 'R': {
             console.log('Read (GET)');
-
+            console.log(oSerialized);            
             $.ajax({
                 url: "http://localhost:2403/accounts/",
                 type: 'GET',
@@ -309,7 +310,7 @@ function fDoAction(event) {
                     console.log('Server response: ');
                     console.log(response);
                     $('#AccTable').empty();
-                    for(i=0; i<response.length; i++ ) {
+                    for(let i=0; i<response.length; i++ ) {
                         $('#AccTable').append(fAddRowToTable(response[i]));
                     };
                     console.log('Rows have been successfully added to the table.');                    
@@ -323,33 +324,44 @@ function fDoAction(event) {
         }
         case 'U': {
             console.log('Update (PUT)');
-            event.preventDefault();  
             console.log(oSerialized);
-        
-            xhr.addEventListener("readystatechange", function () {
-                if (this.readyState === 4) {
-                    console.log(this.responseText);
+            let sID = $('#accID').val();
+            $.ajax({
+                url: "http://localhost:2403/accounts/" + sID,
+                type: 'PUT',
+                datatype:"json",
+                data: oSerialized,                
+                success: function(response) {
+                    console.log("Success!");                    
+                    $(`tr:contains(${sID})`).remove();
+                    $('#AccTable').append(fAddRowToTable(response));
+                    console.log(response); 
+                },
+                error: function(response) {
+                    console.log("Request's error!");                    
+                    console.log(response);
                 }
             });
-                    
-            xhr.open("PUT", "http://localhost:2403/accounts/" + document.getElementById("accID").value);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send(oSerialized);
-            break;
+            break;            
         }
         case 'D': {
             console.log('Delete (DELETE)');
-            event.preventDefault();
-       
-            xhr.addEventListener("readystatechange", function () {
-                if (this.readyState === 4) {
-                    console.log(this.responseText);
+            console.log(oSerialized);
+            let sID = $('#accID').val();
+            $.ajax({
+                url: "http://localhost:2403/accounts/" + sID,
+                type: 'DELETE',
+                datatype:"json",
+                success: function(response) {
+                    console.log("Success!");                    
+                    $(`tr:contains(${sID})`).remove();
+                    console.log(response);                    
+                },
+                error: function(response) {
+                    console.log("Request's error!");                    
+                    console.log(response);
                 }
-            });
-        
-            xhr.open("DELETE", "http://localhost:2403/accounts/" + document.getElementById("accID").value);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send();
+            });            
             break;
         }
     };
@@ -359,21 +371,18 @@ function fAddCellToTableRow(sText) {
     return '<td>' + sText + '</td>'
 };
 
-function fAddRowToTable(oResponse){
-    var row = '<tr>';
+function fFormRowForTable(oResponse) {
+    var aResponse = [oResponse.id, oResponse.contributionType, oResponse.accNumber, oResponse.createDate, oResponse.curBalance, oResponse.userType, oResponse.userName];
+    var sRow = '';
+    for(let i=0; i<aResponse.length; i++) {
+        sRow = sRow + fAddCellToTableRow(aResponse[i]);
+    };
+    return sRow;    
+};
 
-    row = row + fAddCellToTableRow(oResponse.id);
-    row = row + fAddCellToTableRow(oResponse.contributionType);
-    row = row + fAddCellToTableRow(oResponse.accNumber);
-    row = row + fAddCellToTableRow(oResponse.createDate);
-    row = row + fAddCellToTableRow(oResponse.curBalance);
-    row = row + fAddCellToTableRow(oResponse.userType);
-    row = row + fAddCellToTableRow(oResponse.userName);
-    
-    row = row + '</tr>';
-    
-    return row;
-}
+function fAddRowToTable(oResponse) {
+    return '<tr>' + fFormRowForTable(oResponse) + '</tr>';
+};
 
 $(function(){
     $('#doAction').click( function(event) {
@@ -382,6 +391,7 @@ $(function(){
       });
 
 })
+
 var oRadioAccType = document.getElementById('accTypeSelect');
 var oRadioActionType = document.getElementById('actionTypeSelect');
 
