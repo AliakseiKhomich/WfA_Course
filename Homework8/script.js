@@ -124,9 +124,6 @@ class CurAccount extends StdAccount {
 class SavingsAccount extends StdAccount {
     constructor(AccNumber, PIN, CurBalance, CreateDate, UserName, UserType, MaxNumWithdrawalPerYear) {
         super('Savings', AccNumber, PIN, CurBalance, CreateDate, UserName, UserType);
-
-        var args = ['Savings'];
-        super(args.concat(Array.prototype.slice.call(arguments, 0, 5)))
         this._nMaxNumWithdrawalPerYear = MaxNumWithdrawalPerYear;
     }
 
@@ -151,93 +148,118 @@ class SavingsAccount extends StdAccount {
     }
 };
 
-function fChangeAccType(_event) {
-    var selAccType = _event.target.id;
+function fChangeAccType(oEvent) {
+    var selAccType = oEvent.target.id;
 
     switch (selAccType) {
         case 'CurrentAcc': {
-            document.getElementById('withdrawalPerYearInfo').hidden = true;
-            if ((document.getElementById('CreateAcc').checked) ||
-                (document.getElementById('UpdateAcc').checked)) {                    
-                    document.getElementById('storageInfo').hidden = false;
+            $('#withdrawalPerYearInfo').attr("hidden", true);
+            if ( $('#CreateAcc').is(':checked') ||
+                 $('#UpdateAcc').is(':checked') ) {
+                    $('#storageInfo').attr("hidden", false);
             }
             break;
         };
         case 'SavingsAcc': {
-            if ((document.getElementById('CreateAcc').checked) ||
-                (document.getElementById('UpdateAcc').checked)) {
-                    document.getElementById('withdrawalPerYearInfo').hidden = false;                    
+            if ( $('#CreateAcc').is(':checked') ||
+                 $('#UpdateAcc').is(':checked') ) {
+                    $('#withdrawalPerYearInfo').attr("hidden", false);
             }
-            document.getElementById('storageInfo').hidden = true;
+            $('#storageInfo').attr("hidden", true);            
             break;
         }
     }
 };
 
-function fChangeAction(_event) {
-    var selAccType = _event.target.id;
+// function fChangeAccType(_event) {
+//     var selAccType = _event.target.id;
+
+//     switch (selAccType) {
+//         case 'CurrentAcc': {
+//             document.getElementById('withdrawalPerYearInfo').hidden = true;
+//             if ((document.getElementById('CreateAcc').checked) ||
+//                 (document.getElementById('UpdateAcc').checked)) {                    
+//                     document.getElementById('storageInfo').hidden = false;
+//             }
+//             break;
+//         };
+//         case 'SavingsAcc': {
+//             if ((document.getElementById('CreateAcc').checked) ||
+//                 (document.getElementById('UpdateAcc').checked)) {
+//                     document.getElementById('withdrawalPerYearInfo').hidden = false;                    
+//             }
+//             document.getElementById('storageInfo').hidden = true;
+//             break;
+//         }
+//     }
+// };
+
+function fChangeAction(oEvent) {
+    var selAccType = oEvent.target.id;
 
     if ( selAccType === 'CreateAcc' ) {
-        document.getElementById('accIDGroup').hidden = true;
+        $('#accIDGroup').attr("hidden", true);
     }
     else {
-        document.getElementById('accIDGroup').hidden = false;
+        $('#accIDGroup').attr("hidden", false);
     }    
 
     switch (selAccType) {
         case 'CreateAcc': 
         case 'UpdateAcc': {
-            document.getElementById('createDateInfo').hidden = false;
-            document.getElementById('userInfo').hidden = false;
-            document.getElementById('PIN').hidden = false;
-            document.getElementById('balanceInfo').hidden = false;
+            $('#createDateInfo').attr("hidden", false);
+            $('#userInfo').attr("hidden", false);
+            $('#PIN').attr("hidden", false);
+            $('#balanceInfo').attr("hidden", false);
 
-            if (document.getElementById('CurrentAcc').checked) {
-                document.getElementById('storageInfo').hidden = false;                
-                document.getElementById('withdrawalPerYearInfo').hidden = true;
+            if ( $('#CurrentAcc').is(':checked')) {
+                $('#storageInfo').attr("hidden", false);
+                $('#withdrawalPerYearInfo').attr("hidden", true);
             }
             else {
-                document.getElementById('storageInfo').hidden = true;
-                document.getElementById('withdrawalPerYearInfo').hidden = false;
+                $('#storageInfo').attr("hidden", true);
+                $('#withdrawalPerYearInfo').attr("hidden", false);
             }
             break;
         };
         case 'ReadAcc': 
-        case 'DeleteAcc': {            
-            document.getElementById('createDateInfo').hidden = true;
-            document.getElementById('userInfo').hidden = true;
-            document.getElementById('PIN').hidden = true;
-            document.getElementById('balanceInfo').hidden = true;
-            document.getElementById('storageInfo').hidden = true;
-            document.getElementById('withdrawalPerYearInfo').hidden = true;
+        case 'DeleteAcc': {
+            $('#createDateInfo').attr("hidden", true);
+            $('#userInfo').attr("hidden", true);
+            $('#PIN').attr("hidden", true);
+            $('#balanceInfo').attr("hidden", true);
+            $('#storageInfo').attr("hidden", true);
+            $('#withdrawalPerYearInfo').attr("hidden", true);
             break;
         };
     }    
 };
 
 function fGetOperationType () {
-    if ((document.getElementById('CreateAcc').checked)) {
+    
+    if ( $('#CreateAcc').is(':checked') ) {
         return 'C';
     };
-    if ((document.getElementById('ReadAcc').checked)) {
+    if ( $('#ReadAcc').is(':checked') ) {
         return 'R';
     };
-    if ((document.getElementById('UpdateAcc').checked)) {
+    
+    if ( $('#UpdateAcc').is(':checked') ) {
         return 'U';
     };
-    if ((document.getElementById('DeleteAcc').checked)) {
+    if ($('#DeleteAcc').is(':checked') ) {
         return 'D';
     };
 };
 
-function fDoAction(event) {
+function fDoAction(oEvent) {
     var nAccType = 0;
     var oAccount;
-    if ( $('#CurrentAcc').attr("checked") ) {
+    if ( $('#CurrentAcc').is(':checked') ) {
         nAccType = 1;
         oAccount = new CurAccount();
     }
-    if ( $('#SavingsAcc').attr("checked") ) {
+    if ( $('#SavingsAcc').is(':checked') ) {
         nAccType = 2;
         oAccount = new SavingsAccount();
     }
@@ -273,10 +295,6 @@ function fDoAction(event) {
     var oSerialized = oAccount.serializeObject();
     console.log(oSerialized);
 
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-    xhr.timeout = 600000;
-
     switch (sOperationType) {
         case 'C': {
             console.log('Create (POST)');
@@ -301,7 +319,6 @@ function fDoAction(event) {
         };
         case 'R': {
             console.log('Read (GET)');
-            console.log(oSerialized);            
             $.ajax({
                 url: "http://localhost:2403/accounts/",
                 type: 'GET',
@@ -326,44 +343,85 @@ function fDoAction(event) {
             console.log('Update (PUT)');
             console.log(oSerialized);
             let sID = $('#accID').val();
-            $.ajax({
-                url: "http://localhost:2403/accounts/" + sID,
-                type: 'PUT',
-                datatype:"json",
-                data: oSerialized,                
-                success: function(response) {
-                    console.log("Success!");                    
-                    $(`tr:contains(${sID})`).remove();
-                    $('#AccTable').append(fAddRowToTable(response));
-                    console.log(response); 
-                },
-                error: function(response) {
-                    console.log("Request's error!");                    
-                    console.log(response);
-                }
+            let getPromise = new Promise ( function fCheckID(resolve, reject)  {
+                $.ajax({
+                    url: `http://localhost:2403/accounts/${sID}`,
+                    type: 'GET',
+                    datatype: "json",
+                    success: function() {
+                        resolve("success");
+                        console.log('Id is found!');
+                    },
+                    error: function(response) {
+                        reject(response);
+                        console.log('Id is not found!');
+                    }
+                });
             });
+            getPromise.then( function() {
+                $.ajax({
+                    url: `http://localhost:2403/accounts/${sID}`,
+                    type: 'PUT',
+                    datatype:"json",
+                    data: oSerialized,                
+                    success: function(response) {
+                        console.log("Success!");                    
+                        $(`tr:contains(${sID})`).remove();
+                        $('#AccTable').append(fAddRowToTable(response));
+                        console.log(response); 
+                    },
+                    error: function(response) {
+                        console.log("Request's error!");                    
+                        console.log(response);
+                    }
+                });                
+            }).catch(function(error) {
+                console.log(error);
+                alert(`Cannot update record! Server respond: ${error.responseText}`);
+            });
+
             break;            
         }
         case 'D': {
             console.log('Delete (DELETE)');
-            console.log(oSerialized);
             let sID = $('#accID').val();
-            $.ajax({
-                url: "http://localhost:2403/accounts/" + sID,
-                type: 'DELETE',
-                datatype:"json",
-                success: function(response) {
-                    console.log("Success!");                    
-                    $(`tr:contains(${sID})`).remove();
-                    console.log(response);                    
-                },
-                error: function(response) {
-                    console.log("Request's error!");                    
-                    console.log(response);
-                }
+            let getPromise = new Promise (function fCheckID(resolve, reject)  {
+                $.ajax({
+                    url: `http://localhost:2403/accounts/${sID}`,
+                    type: 'GET',
+                    datatype: "json",
+                    success: function() {
+                        resolve("success");
+                        console.log('Id is found!');
+                    },
+                    error: function(response) {
+                        reject(response);
+                        console.log('Id is not found!');
+                    }
+                });
+            });
+            getPromise.then(function() {
+                $.ajax({
+                    url: `http://localhost:2403/accounts/${sID}`,
+                    type: 'DELETE',
+                    datatype:"json",
+                    success: function(response) {
+                        console.log("Success!");
+                        $(`tr:contains(${sID})`).remove();
+                        console.log(response);
+                        alert(`One row deleted!`);
+                    },
+                    error: function(response) {
+                        console.log("Request's error!");                    
+                        console.log(response.responseText);
+                    }
+                });
+            }).catch(function(error) {
+                console.log(error);
+                alert(`Cannot delete record! Server respond: ${error.responseText}`);
             });            
             break;
-        }
+        };
     };
 };
 
@@ -385,15 +443,16 @@ function fAddRowToTable(oResponse) {
 };
 
 $(function(){
-    $('#doAction').click( function(event) {
-        event.preventDefault();
-        fDoAction(event); 
-      });
+    $('#accTypeSelect').click( function(oEvent) {
+        fChangeAccType(oEvent);
+    });
 
-})
-
-var oRadioAccType = document.getElementById('accTypeSelect');
-var oRadioActionType = document.getElementById('actionTypeSelect');
-
-oRadioAccType.addEventListener('click', fChangeAccType);
-oRadioActionType.addEventListener('click', fChangeAction);
+    $('#actionTypeSelect').click( function(oEvent) {
+        fChangeAction(oEvent);
+    });    
+    
+    $('#doAction').click( function(oEvent) {
+        oEvent.preventDefault();
+        fDoAction(oEvent); 
+    });
+});
