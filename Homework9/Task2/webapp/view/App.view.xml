@@ -1,0 +1,117 @@
+<mvc:View 
+	controllerName="ZKHO.HW9_Task2.controller.App" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	displayBlock="true" 
+	xmlns="sap.m">
+	<Shell id="shell">
+		<App busy="{appView>/busy}" class="sapUiSizeCompact">
+			<pages>
+				<Page title="{i18n>peoplePageTitle}">
+					<content>
+						<Button
+							icon="sap-icon://activate"
+							press=".onLoadData"
+							text="Get Data!"
+						/>
+						<Button
+							icon="sap-icon://sys-cancel"
+							press=".onClearData"
+							text="Clear Data!"
+						/>						
+						<Table
+							id="peopleList"
+							growing="true"
+							growingThreshold="10"
+							items="{people>/value}"
+						>
+							<columns>
+								<Column id="userNameColumn">
+									<Text text="{i18n>userNameLabelText}"/>
+								</Column>
+								<Column id="firstNameColumn">
+									<Text text="{i18n>firstNameLabelText}"/>
+								</Column>
+								<Column id="lastNameColumn">
+									<Text text="{i18n>lastNameLabelText}"/>
+								</Column>
+								<Column id="middleNameColumn">
+									<Text text="{i18n>middleNameLabelText}"/>
+								</Column>
+								<Column id="genderColumn">
+									<Text text="{i18n>genderLabelText}"/>
+								</Column>
+								<Column id="ageColumn">
+									<Text text="{i18n>ageLabelText}"/>
+								</Column>
+								<Column id="email1Column">
+									<Text text="{i18n>email1LabelText}"/>
+								</Column>
+								<Column id="email2Column">
+									<Text text="{i18n>email2LabelText}"/>
+								</Column>
+								<Column id="favoriteFeatureColumn">
+									<Text text="{i18n>favoriteFeatureLabelText}"/>
+								</Column>
+								<Column id="featuresColumn">
+									<Text text="{i18n>featuresLabelText}"/>
+								</Column>
+								<Column id="address1InfoColumn">
+									<Text text="{i18n>address2InfoLabelText}"/>
+								</Column>
+								<Column id="address2InfoColumn">
+									<Text text="{i18n>address2InfoLabelText}"/>
+								</Column>								
+								<Column id="homeAddressColumn">
+									<Text text="{i18n>homeAddressLabelText}"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<Text text="{people>UserName}"/>
+									</cells>
+									<cells>
+										<Text text="{people>FirstName}"/>
+									</cells>
+									<cells>
+										<Text text="{people>LastName}"/>
+									</cells>
+									<cells>
+										<Text text="{people>MiddleName}"/>
+									</cells>
+									<cells>
+										<Text text="{people>Gender}"/>
+									</cells>									
+									<cells>
+										<Text text="{people>Age}"/>
+									</cells>
+									<cells>
+										<Text text="{people>Emails/0}"/>
+									</cells>
+									<cells>
+										<Text text="{people>Emails/1}"/>
+									</cells>
+									<cells>
+										<Text text="{people>FavoriteFeature}"/>
+									</cells>
+									<cells>
+										<Text text="{people>Features}"/>
+									</cells>
+									<cells>
+										<Text text="{people>AddressInfo/0/Address} {people>AddressInfo/0/City/Name} {people>AddressInfo/0/City/CountryRegion} {people>AddressInfo/0/City/Region}"/>
+									</cells>
+									<cells>
+										<Text text="{people>AddressInfo/1/Address} {people>AddressInfo/1/City/Name} {people>AddressInfo/1/City/CountryRegion} {people>AddressInfo/1/City/Region}"/>
+									</cells>
+									<cells>
+										<Text text="{people>HomeAddress/Address} {people>HomeAddress/City}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					</content>
+				</Page>
+			</pages>
+		</App>
+	</Shell>
+</mvc:View>
