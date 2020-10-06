@@ -1,0 +1,38 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Panel headerText="{i18n>strings3PanelTitle}" class="sapUiResponsiveMargin" width="auto">
+		<Table
+			id="strings3RequestResult"
+			growing="true"
+			growingThreshold="10"
+			headerText="{i18n>strings3PanelTitle}.  {i18n>strings3RequestInfoLabel}."
+			items="{
+				path: 'strings3>/value',
+				sorter: {
+						path: 'Name'
+				},
+				templateShareable: false 
+			}"
+		>
+			<columns>
+				<Column id="strings3IataCode">
+					<Text text="{i18n>strings3IataCodeLabelText}"/>
+				</Column>
+				<Column id="strings3Name">
+					<Text text="{i18n>strings3NameLabelText}"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{strings3>IataCode}"/>
+					</cells>
+					<cells>
+						<Text text="{strings3>Name}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Panel>
+</core:FragmentDefinition>

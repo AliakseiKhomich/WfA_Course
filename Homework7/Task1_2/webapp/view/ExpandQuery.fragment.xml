@@ -1,0 +1,54 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Panel headerText="{i18n>expandPanelTitle}" class="sapUiResponsiveMargin" width="auto">
+		<Table
+			id="expandRequestResult"
+			headerText="{i18n>expandPanelTitle}.  {i18n>expandRequestInfoLabel}.  ({expand>/value/FirstName} {expand>/value/LastName})"
+			growing="true"
+			growingThreshold="10"
+			items="{
+				path: 'expand>/value/Trips',
+				sorter: { path: 'TripsName'	},
+				templateShareable: false 
+			}"			
+		>
+			<columns>
+				<Column id="expandName">
+					<Text text="{i18n>expandNameLabelText}"/>
+				</Column>
+				<Column id="expandBudget">
+					<Text text="{i18n>expandBudgetLabelText}"/>
+				</Column>
+				<Column id="expandStartsAt">
+					<Text text="{i18n>expandStartsAtLabelText}"/>
+				</Column>
+				<Column id="expandEndsAt">
+					<Text text="{i18n>expandEndsAtLabelText}"/>
+				</Column>
+				<Column id="Description">
+					<Text text="{i18n>expandDescriptionLabelText}"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{expand>Name}"/>
+					</cells>
+					<cells>
+						<Text text="{expand>Budget}"/>
+					</cells>
+					<cells>
+						<Text text="{expand>StartsAt}"/>
+					</cells>
+					<cells>
+						<Text text="{expand>EndsAt}"/>
+					</cells>
+					<cells>
+						<Text text="{expand>Description}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Panel>
+</core:FragmentDefinition>

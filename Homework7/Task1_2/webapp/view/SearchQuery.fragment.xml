@@ -1,0 +1,56 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Panel headerText="{i18n>searchPanelTitle}" class="sapUiResponsiveMargin" width="auto">
+		<Table
+			id="searchRequestResult"
+			growing="true"
+			growingThreshold="10"
+			headerText="{i18n>searchPanelTitle}.  {i18n>searchRequestInfoLabel}."
+			items="{
+				path: 'search>/value',
+				sorter: {
+						path: 'Name'
+				},
+				templateShareable: false 
+			}"
+		>
+			<columns>
+				<Column id="searchIataCode">
+					<Text text="{i18n>searchIataCodeLabelText}"/>
+				</Column>
+				<Column id="searchName">
+					<Text text="{i18n>searchNameLabelText}"/>
+				</Column>
+				<Column id="searchCity">
+					<Text text="{i18n>searchCityLabelText}"/>
+				</Column>
+				<Column id="searchRegion">
+					<Text text="{i18n>searchRegionLabelText}"/>
+				</Column>
+				<Column id="searchCountryRegion">
+					<Text text="{i18n>searchCountryRegionLabelText}"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{search>IataCode}"/>
+					</cells>
+					<cells>
+						<Text text="{search>Name}"/>
+					</cells>
+					<cells>
+						<Text text="{search>Location/City/Name}"/>
+					</cells>
+					<cells>
+						<Text text="{search>Location/City/Region}"/>
+					</cells>
+					<cells>
+						<Text text="{search>Location/City/CountryRegion}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Panel>
+</core:FragmentDefinition>

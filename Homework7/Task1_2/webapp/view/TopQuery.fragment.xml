@@ -1,0 +1,38 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Panel headerText="{i18n>topPanelTitle}" class="sapUiResponsiveMargin" width="auto">
+		<Table
+			id="topRequestResult"
+			growing="true"
+			growingThreshold="10"
+			headerText="{i18n>topPanelTitle}.  {i18n>topRequestInfoLabel}."
+			items="{
+				path: 'top>/value',
+				sorter: {
+						path: 'AirlineCode'
+				},
+				templateShareable: false 
+			}"
+		>
+			<columns>
+				<Column id="topAirlineCode">
+					<Text text="{i18n>topAirlineCodeLabelText}"/>
+				</Column>
+				<Column id="topName">
+					<Text text="{i18n>topNameLabelText}"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{top>AirlineCode}"/>
+					</cells>
+					<cells>
+						<Text text="{top>Name}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Panel>
+</core:FragmentDefinition>

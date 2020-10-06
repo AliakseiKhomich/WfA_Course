@@ -1,0 +1,8 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Panel id="countRequestResult" headerText="{i18n>countPanelTitle}" class="sapUiResponsiveMargin" width="auto">
+		<Label text="{i18n>countRequestInfoLabel}"/>
+		<Input value="{count>/value}"/>
+	</Panel>
+</core:FragmentDefinition>

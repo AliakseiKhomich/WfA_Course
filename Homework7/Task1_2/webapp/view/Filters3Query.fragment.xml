@@ -1,0 +1,50 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Panel headerText="{i18n>filters3PanelTitle}" class="sapUiResponsiveMargin" width="auto">
+		<Table
+			id="filters3RequestResult"
+			growing="true"
+			growingThreshold="10"
+			headerText="{i18n>filters3PanelTitle}.  {i18n>filters3RequestInfoLabel}."
+			items="{
+				path: 'filters3>/value',
+				sorter: {
+						path: 'LastName'
+				},
+				templateShareable: false 
+			}"
+		>
+			<columns>
+				<Column id="filters3UserName">
+					<Text text="{i18n>filters3UserNameLabelText}"/>
+				</Column>				
+				<Column id="filters3FirstName">
+					<Text text="{i18n>filters3FirstNameLabelText}"/>
+				</Column>
+				<Column id="filters3LastName">
+					<Text text="{i18n>filters3LastNameLabelText}"/>
+				</Column>
+				<Column id="filters3Gender">
+					<Text text="{i18n>filters3GenderLabelText}"/>
+				</Column>				
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{filters3>UserName}"/>
+					</cells>					
+					<cells>
+						<Text text="{filters3>FirstName}"/>
+					</cells>
+					<cells>
+						<Text text="{filters3>LastName}"/>
+					</cells>
+					<cells>
+						<Text text="{filters3>Gender}"/>
+					</cells>					
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Panel>
+</core:FragmentDefinition>

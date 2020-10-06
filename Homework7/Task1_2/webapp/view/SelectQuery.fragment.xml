@@ -1,0 +1,38 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Panel headerText="{i18n>selectPanelTitle}" class="sapUiResponsiveMargin" width="auto">
+		<Table
+			id="selectRequestResult"
+			growing="true"
+			growingThreshold="10"
+			headerText="{i18n>selectPanelTitle}.  {i18n>selectRequestInfoLabel}."
+			items="{
+				path: 'select>/value',
+				sorter: {
+						path: 'LastName'
+				},
+				templateShareable: false 
+			}"
+		>
+			<columns>
+				<Column id="selectFirstName">
+					<Text text="{i18n>selectFirstNameLabelText}"/>
+				</Column>
+				<Column id="selectLastName">
+					<Text text="{i18n>selectLastNameLabelText}"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<Text text="{select>FirstName}"/>
+					</cells>
+					<cells>
+						<Text text="{select>LastName}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+	</Panel>
+</core:FragmentDefinition>
